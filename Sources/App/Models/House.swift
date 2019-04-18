@@ -11,11 +11,11 @@ import FluentSQLite
 
 struct Decibel: Content{
     
-    var max: Int
-    var time: Int
-    var avrg: Int
+    var max: Float
+    var time: Float
+    var avrg: Float
     
-    init(max: Int, time: Int, avrg: Int) {
+    init(max: Float, time: Float, avrg: Float) {
         self.max = max
         self.time = max
         self.avrg = max
