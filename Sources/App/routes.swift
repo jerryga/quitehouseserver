@@ -1,6 +1,5 @@
 import Vapor
 import FluentSQLite
-import CoreLocation
 
 public func routes(_ router: Router) throws {
  
