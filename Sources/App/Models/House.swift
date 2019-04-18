@@ -2,7 +2,7 @@
 //  House.swift
 //  App
 //
-//  Created by baidu on 2019/4/16.
+//  Created by Asa. Ga on 2019/4/16.
 //
 
 import Foundation
@@ -21,21 +21,6 @@ struct Decibel: Content{
         self.avrg = max
     }
 }
-
-/*
-struct Location: SQLiteModel{
-    var id: Int?
-    
-    var latitude: Double
-    var longitude: Double
-    var houseID: Int
-
-}
-
-extension Location: Migration { }
-extension Location: Content { }
-extension Location: Parameter { }
-*/
 
 struct Location: Codable{
     var latitude: Double
@@ -62,6 +47,22 @@ final class House: SQLiteModel {
 extension House: Migration { }
 extension House: Content { }
 extension House: Parameter { }
+
+//Relation
+/*
+ struct Location: SQLiteModel{
+ var id: Int?
+ 
+ var latitude: Double
+ var longitude: Double
+ var houseID: Int
+ 
+ }
+ 
+ extension Location: Migration { }
+ extension Location: Content { }
+ extension Location: Parameter { }
+ */
 
 /*
 extension House {
