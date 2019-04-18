@@ -18,7 +18,7 @@ import FluentSQLite
  
  */
 
-enum DecibelLevel: Int, Codable{
+enum DecibelLevel: Int, Content{
     case None
     case Sleep
     case Quite
@@ -50,7 +50,7 @@ struct Decibel: Content{
     }
 }
 
-struct Location: Codable{
+struct Location: Content{
     var latitude: Double
     var longitude: Double
 }
