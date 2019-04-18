@@ -27,26 +27,28 @@ enum DecibelLevel: Int, Content{
 }
 
 struct Decibel: Content{
-    
     var max: Float
     var time: Float
     var avrg: Float
-    var level: DecibelLevel = .None
-
+    
+    var level: DecibelLevel {
+        get {
+            if self.avrg <= 31 {
+                return .Sleep
+            }else if self.avrg <= 45 {
+                return .Quite
+            }else if self.avrg <= 65 {
+                return .Moderate
+            }else {
+                return .Loud
+            }
+        }
+    }
+    
     init(max: Float, time: Float, avrg: Float) {
         self.max = max
         self.time = time
         self.avrg = avrg
-        
-        if self.avrg <= 31 {
-            self.level = .Sleep
-        }else if self.avrg <= 45 {
-            self.level = .Quite
-        }else if self.avrg <= 65 {
-            self.level = .Moderate
-        }else {
-            self.level = .Loud
-        }
     }
 }
 
