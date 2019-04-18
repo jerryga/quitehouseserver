@@ -9,16 +9,44 @@ import Foundation
 import Vapor
 import FluentSQLite
 
+/*
+ 
+ 31以下：适合睡眠
+ 31-45以下：安静
+ 45-65以下：中等安静
+ 65以上：吵闹、喧哗
+ 
+ */
+
+enum DecibelLevel: Int, Codable{
+    case None
+    case Sleep
+    case Quite
+    case Moderate
+    case Loud
+}
+
 struct Decibel: Content{
     
     var max: Float
     var time: Float
     var avrg: Float
-    
+    var level: DecibelLevel = .None
+
     init(max: Float, time: Float, avrg: Float) {
         self.max = max
-        self.time = max
-        self.avrg = max
+        self.time = time
+        self.avrg = avrg
+        
+        if self.avrg <= 31 {
+            self.level = .Sleep
+        }else if self.avrg <= 45 {
+            self.level = .Quite
+        }else if self.avrg <= 65 {
+            self.level = .Moderate
+        }else {
+            self.level = .Loud
+        }
     }
 }
 
