@@ -1,20 +1,16 @@
 import Vapor
+import FluentSQLite
+import CoreLocation
 
-/// Register your application's routes here.
 public func routes(_ router: Router) throws {
-    // Basic "It works" example
-    router.get { req in
-        return "Congratulations to Xiao Erge！🎉🎉🎉"
-    }
-    
-    // Basic "Hello, world!" example
-    router.get("hello") { req in
-        return "Hello, world!"
+ 
+    router.post(House.self, at: "add") { req, house -> Future<House> in
+        return house.save(on: req);
     }
 
-    // Example of configuring a controller
-    let todoController = TodoController()
-    router.get("todos", use: todoController.index)
-    router.post("todos", use: todoController.create)
-    router.delete("todos", Todo.parameter, use: todoController.delete)
+    router.get("house", String.parameter) { req -> Future<[House]> in
+        let cityName = try req.parameters.next(String.self)
+        return House.query(on: req).filter(\.cityName == cityName).all()
+    }
 }
+
