@@ -4,7 +4,9 @@ import FluentSQLite
 public func routes(_ router: Router) throws {
  
     router.post(House.self, at: "add") { req, house -> Future<House> in
-        return house.save(on: req);
+        let houseCopy = house
+        houseCopy.date = Date()
+        return houseCopy.save(on: req)
     }
 
     router.get("house", String.parameter) { req -> Future<[House]> in
