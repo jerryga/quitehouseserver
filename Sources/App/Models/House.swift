@@ -61,13 +61,18 @@ final class House: SQLiteModel {
     
     var id: Int?
     
-    var decibel: Decibel?
+    var decibel: Decibel = Decibel.init(max: 0, time: 0, avrg: 0)
     var location: Location?
-    
+    //用户输入小区名字
     var name: String
+    //留言&评论
     var comments: String?
-    
+    //地图获取
+    var address: String?
+    //eg. Beijing
     var cityName: String?
+    
+    var date: Date?
     
     init(name: String) {
         self.name = name
