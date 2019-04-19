@@ -2,10 +2,12 @@ import Vapor
 import FluentSQLite
 
 public func routes(_ router: Router) throws {
- 
+    let dateformat: DateFormatter = DateFormatter()
+    dateformat.dateFormat = "MMM dd,yyyy h:mm a"
+    
     router.post(House.self, at: "add") { req, house -> Future<House> in
         let houseCopy = house
-        houseCopy.date = Date()
+        houseCopy.dateStr = dateformat.string(for: Date())
         return houseCopy.save(on: req)
     }
 

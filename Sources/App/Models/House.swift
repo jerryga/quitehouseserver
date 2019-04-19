@@ -73,7 +73,7 @@ final class House: SQLiteModel {
     //eg. Beijing
     var cityName: String?
     
-    var date: Date?
+    var dateStr: String?
     
     init(name: String) {
         self.name = name
