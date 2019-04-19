@@ -65,7 +65,7 @@ final class House: SQLiteModel {
     var decibel: Decibel?
 
     //用户输入小区名字
-    var name: String
+    var name: String?
     //留言&评论
     var comments: String?
     //地图获取
