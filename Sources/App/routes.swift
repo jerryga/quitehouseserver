@@ -20,7 +20,7 @@ public func routes(_ router: Router) throws {
         let aname = try req.parameters.next(String.self)
         return req.withPooledConnection(to: DatabaseIdentifier<SQLiteDatabase>.sqlite, closure: { (db) -> Future<[House]> in
             return db
-                .raw("SELECT * From House WHERE name LIKE '%\(aname)%' address LIKE '%\(aname)%'").all(decoding: House.self)
+                .raw("SELECT * From House WHERE name LIKE '%\(aname)%' OR address LIKE '%\(aname)%'").all(decoding: House.self)
         })
     }
 }
