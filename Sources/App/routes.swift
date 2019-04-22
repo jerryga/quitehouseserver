@@ -15,5 +15,13 @@ public func routes(_ router: Router) throws {
         let cityName = try req.parameters.next(String.self)
         return House.query(on: req).filter(\.cityName == cityName).all()
     }
+    
+    router.get("query", String.parameter) { req  -> Future<[House]> in
+        let aname = try req.parameters.next(String.self)
+        return req.withPooledConnection(to: DatabaseIdentifier<SQLiteDatabase>.sqlite, closure: { (db) -> Future<[House]> in
+            return db
+                .raw("SELECT * From House WHERE name LIKE '%\(aname)%' address LIKE '%\(aname)%'").all(decoding: House.self)
+        })
+    }
 }
 
