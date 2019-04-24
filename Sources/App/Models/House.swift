@@ -57,10 +57,16 @@ struct Location: Content{
     var longitude: Double
 }
 
+struct AuthInfo: Content {
+    var timestamp: Double
+    var sign: String
+}
+
 final class House: SQLiteModel {
     
     var id: Int?
     
+    var auth: AuthInfo?
     var location: Location?
     var decibel: Decibel?
 
@@ -72,7 +78,7 @@ final class House: SQLiteModel {
     var address: String?
     //eg. Beijing
     var cityName: String?
-    
+    //创建时间
     var dateStr: String?
     
     init(name: String) {
