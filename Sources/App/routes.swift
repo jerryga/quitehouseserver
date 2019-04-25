@@ -27,7 +27,7 @@ public func routes(_ router: Router) throws {
         guard true == varifySignInfo(auth: auth) else {
             
             let combinedStr = (String(auth.timestamp) + salt).MD5()
-            throw Abort(.badRequest, reason: "Invalid sign :\(combinedStr)")
+            throw Abort(.badRequest, reason: "Invalid sign :\(combinedStr) time \(String(auth.timestamp)) salt \(salt)")
         }
         
         let cityName = try req.parameters.next(String.self)
@@ -63,6 +63,7 @@ func varifySignInfo(auth: AuthInfo) -> Bool {
 //    }
 
     let combinedStr = (String(auth.timestamp) + salt).MD5()
+    print(combinedStr)
     if combinedStr == auth.sign {
         return true
     }
