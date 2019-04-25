@@ -56,9 +56,9 @@ func varifySignInfo(auth: AuthInfo) -> Bool {
     let deleta = abs((currentTimeInterval - auth.timestamp))
     print(deleta)
     
-    if deleta > 300{
-        return false
-    }
+//    if deleta > 300{
+//        return false
+//    }
 
     let combinedStr = (String(auth.timestamp) + salt).MD5()
     if combinedStr == auth.sign {
