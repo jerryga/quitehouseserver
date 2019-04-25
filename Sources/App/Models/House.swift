@@ -58,8 +58,8 @@ struct Location: Content{
 }
 
 struct AuthInfo: Content {
-    var timestamp: Int
-    var sign: String
+    var timestamp: String!
+    var sign: String!
 }
 
 final class House: SQLiteModel {

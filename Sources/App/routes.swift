@@ -25,9 +25,7 @@ public func routes(_ router: Router) throws {
         let auth = try req.query.decode(AuthInfo.self)
 
         guard true == varifySignInfo(auth: auth) else {
-            
-            let combinedStr = (String(auth.timestamp) + salt).MD5()
-            throw Abort(.badRequest, reason: "Invalid sign :\(combinedStr) time \(String(auth.timestamp)) salt \(salt)")
+            throw Abort(.badRequest, reason: "Invalid sign")
         }
         
         let cityName = try req.parameters.next(String.self)
@@ -55,14 +53,15 @@ func varifySignInfo(auth: AuthInfo) -> Bool {
     
     let currentDate = Date()
     let currentTimeInterval = (Int)(currentDate.timeIntervalSince1970)
-    let deleta = abs((currentTimeInterval - auth.timestamp))
+    let timestamp = (Int)(auth.timestamp)
+    let deleta = abs((currentTimeInterval - timestamp!))
     print(deleta)
     
-//    if deleta > 300{
-//        return false
-//    }
+    if deleta > 300{
+        return false
+    }
 
-    let combinedStr = (String(auth.timestamp) + salt).MD5()
+    let combinedStr = (auth.timestamp + salt).MD5()
     print(combinedStr)
     if combinedStr == auth.sign {
         return true
