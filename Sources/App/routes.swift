@@ -28,7 +28,7 @@ public func routes(_ router: Router) throws {
             throw Abort(.badRequest, reason: "Invalid sign")
         }
         
-        let cityName = try req.parameters.next(String.self)
+        let cityName = try req.parameters.next(String.self).removingPercentEncoding
         return House.query(on: req).filter(\.cityName == cityName).all()
     }
     
@@ -39,12 +39,16 @@ public func routes(_ router: Router) throws {
             throw Abort(.badRequest, reason: "Invalid sign")
         }
         
-        let aname = try req.parameters.next(String.self)
+        let aname = try req.parameters.next(String.self).removingPercentEncoding
+        guard let queryname = aname else {
+            throw Abort(.badRequest, reason: "Invalid sign")
+        }
+        
         return req.withPooledConnection(to: DatabaseIdentifier<SQLiteDatabase>.sqlite, closure: { (db) -> Future<[House]> in
 //            return db
 //                .raw("SELECT * From House WHERE name LIKE '%\(aname)%' OR address LIKE '%\(aname)%'").sort(\.name, .descending).all(decoding: House.self)
             return db
-                .raw("SELECT * From House WHERE name LIKE '%\(aname)%' OR address LIKE '%\(aname)%' ORDER BY dateStr DESC").all(decoding: House.self)
+                .raw("SELECT * From House WHERE name LIKE '%\(queryname)%' OR address LIKE '%\(queryname)%' ORDER BY dateStr DESC").all(decoding: House.self)
         })
     }
 }
