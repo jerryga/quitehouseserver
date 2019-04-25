@@ -54,7 +54,7 @@ public func routes(_ router: Router) throws {
 func varifySignInfo(auth: AuthInfo) -> Bool {
     
     let currentDate = Date()
-    let currentTimeInterval = currentDate.timeIntervalSince1970
+    let currentTimeInterval = (Int)(currentDate.timeIntervalSince1970)
     let deleta = abs((currentTimeInterval - auth.timestamp))
     print(deleta)
     

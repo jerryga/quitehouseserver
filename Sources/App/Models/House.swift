@@ -58,7 +58,7 @@ struct Location: Content{
 }
 
 struct AuthInfo: Content {
-    var timestamp: Double
+    var timestamp: Int
     var sign: String
 }
 
