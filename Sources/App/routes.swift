@@ -1,5 +1,5 @@
 import Vapor
-import FluentSQLite
+import FluentPostgreSQL
 
 private let salt: String = "rsMBhwoxIOjH5SL"
 
@@ -44,7 +44,7 @@ public func routes(_ router: Router) throws {
             throw Abort(.badRequest, reason: "Invalid sign")
         }
         
-        return req.withPooledConnection(to: DatabaseIdentifier<SQLiteDatabase>.sqlite, closure: { (db) -> Future<[House]> in
+        return req.withPooledConnection(to: .psql, closure: { (db) -> Future<[House]> in
 //            return db
 //                .raw("SELECT * From House WHERE name LIKE '%\(aname)%' OR address LIKE '%\(aname)%'").sort(\.name, .descending).all(decoding: House.self)
             return db

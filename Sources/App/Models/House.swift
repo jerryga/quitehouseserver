@@ -7,7 +7,7 @@
 
 import Foundation
 import Vapor
-import FluentSQLite
+import FluentPostgreSQL
 
 /*
  
@@ -62,9 +62,9 @@ struct AuthInfo: Content {
     var sign: String!
 }
 
-final class House: SQLiteModel {
-    
-    var id: Int?
+final class House: Content {
+
+    var id: UUID?
     
     var auth: AuthInfo?
     var location: Location?
@@ -87,8 +87,9 @@ final class House: SQLiteModel {
 }
 
 extension House: Migration { }
-extension House: Content { }
 extension House: Parameter { }
+extension House: PostgreSQLUUIDModel {}
+
 
 //Relation
 /*
